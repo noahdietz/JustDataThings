@@ -10,6 +10,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,5 +34,7 @@ public class DocumentFrequency {
             Logger.getLogger("DocumentFrequency").log(Level.SEVERE, null, ex);
         }
         String data = new String(encoded, Charset.defaultCharset());
+        
+        Scanner input = new Scanner(data);
     }
 }
