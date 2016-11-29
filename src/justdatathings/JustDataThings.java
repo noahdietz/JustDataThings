@@ -16,6 +16,8 @@ public class JustDataThings {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+         DocumentFrequency df = DocumentFrequency();
+         df.populateWords("../data/debate.txt");
     }
     
 }

@@ -37,4 +37,21 @@ public class DocumentFrequency {
         
         Scanner input = new Scanner(data);
     }
+
+    public void populateWords(String filename) {
+        try(BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            for(String line; (line = br.readLine()) != null; ) {
+                // process the line.
+                for (String word : line.split("\\s+")) {
+                    if (words.containsKey(line)) {
+                        words.put(word, words.get(word) + 1);
+                    }
+                    else {
+                        words.put(word, 1);
+                    }
+                }
+            }
+            // line is not visible here.
+        }
+    }
 }
