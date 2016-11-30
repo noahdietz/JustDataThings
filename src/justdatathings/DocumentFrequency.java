@@ -5,6 +5,8 @@
  */
 package justdatathings;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -20,22 +22,10 @@ import java.util.logging.Logger;
  */
 public class DocumentFrequency {
     private HashMap<String, Integer> words;
+    public static String noiseWordArray[] = {"a", "about", "above", "all", "along","also", "although", "am", "an", "and", "any", "are", "aren't", "as", "at","be", "because", "been", "but", "by", "can", "cannot", "could", "couldn't","did", "didn't", "do", "does", "doesn't", "e.g.", "either", "etc", "etc.","even", "ever", "enough", "for", "from", "further", "get", "gets", "got", "had", "have","hardly", "has", "hasn't", "having", "he", "hence", "her", "here","hereby", "herein", "hereof", "hereon", "hereto", "herewith", "him","his", "how", "however", "i", "i.e.", "if", "in", "into", "it", "it's", "its","me", "more", "most", "mr", "my", "near", "nor", "now", "no", "not", "or", "on", "of", "onto","other", "our", "out", "over", "really", "said", "same", "she","should", "shouldn't", "since", "so", "some", "such","than", "that", "the", "their", "them", "then", "there", "thereby","therefore", "therefrom", "therein", "thereof", "thereon", "thereto","therewith", "these", "they", "this", "those", "through", "thus", "to","too", "under", "until", "unto", "upon", "us", "very", "was", "wasn't","we", "were", "what", "when", "where", "whereby", "wherein", "whether","which", "while", "who", "whom", "whose", "why", "with", "without","would", "you", "your", "yours", "yes"};
     
     public DocumentFrequency() {
         this.words = new HashMap<>();
-    }
-    
-    public void process(String fileName) {
-        // read data file
-        byte[] encoded = null;
-        try {
-            encoded = Files.readAllBytes(Paths.get(fileName));
-        } catch (IOException ex) {
-            Logger.getLogger("DocumentFrequency").log(Level.SEVERE, null, ex);
-        }
-        String data = new String(encoded, Charset.defaultCharset());
-        
-        Scanner input = new Scanner(data);
     }
 
     public void populateWords(String filename) {
@@ -43,7 +33,8 @@ public class DocumentFrequency {
             for(String line; (line = br.readLine()) != null; ) {
                 // process the line.
                 for (String word : line.split("\\s+")) {
-                    if (words.containsKey(line)) {
+                    word = word.replaceAll("[^a-zA-Z]+","").toLowerCase();
+                    if (words.containsKey(word)) {
                         words.put(word, words.get(word) + 1);
                     }
                     else {
@@ -51,7 +42,10 @@ public class DocumentFrequency {
                     }
                 }
             }
-            // line is not visible here.
+        } catch(Exception e) {
+            System.out.println(e);
         }
+        
+        System.out.printf("TRUMP: %d\n", words.get("trump"));
     }
 }
