@@ -12,7 +12,9 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +28,19 @@ public class DocumentFrequency {
     
     public DocumentFrequency() {
         this.words = new HashMap<>();
+    }
+    
+
+    public Integer GetWordFrequency(String word) {
+        if (words.containsKey(word)) {
+            return words.get(word);
+        }
+        
+        return 0;
+    }
+    
+    public Set<Map.Entry<String, Integer>> WordsAsEntrySet() {
+        return words.entrySet();
     }
 
     public void populateWords(String filename) {
