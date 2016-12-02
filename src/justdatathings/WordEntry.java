@@ -18,6 +18,11 @@ public class WordEntry {
         word = w;
         frequency = f;
     }
+    
+    @Override
+    public String toString() {
+        return "word: " + word + " freq: " + frequency;
+    }
 
     public String getWord() {
         return word;

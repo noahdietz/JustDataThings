@@ -35,7 +35,7 @@ public class DocumentFrequency {
         if (words.containsKey(word)) {
             return words.get(word);
         }
-        
+
         return 0;
     }
     
@@ -60,7 +60,5 @@ public class DocumentFrequency {
         } catch(Exception e) {
             System.out.println(e);
         }
-        
-        System.out.printf("TRUMP: %d\n", words.get("trump"));
     }
 }

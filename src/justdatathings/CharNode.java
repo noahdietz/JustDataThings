@@ -5,6 +5,9 @@
  */
 package justdatathings;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 
 /**
  *
@@ -12,24 +15,30 @@ package justdatathings;
  */
 public class CharNode {
     private char letter;
-    private ArrayList<WordNode> frequentWords;
-    private HashMap<Char, CharNode> childrenNodes;
+    private ArrayList<WordEntry> frequentWords;
+    private HashMap<Character, CharNode> childrenNodes;
 
     public CharNode(char l) {
         letter = l;
         frequentWords = new ArrayList<>();
-        childrenNodes = new Hashmap<>();
+        childrenNodes = new HashMap<>();
+    }
+    
+    @Override
+    public String toString() {
+        return letter + "\n\tfrequent words: " + frequentWords.toString() + "\n\tchildrens: " + childrenNodes.toString();
     }
 
     public char getLetter() {
         return letter;
     }
 
-    public addWord(WordEntry wordEntry) {
+    public void addWord(WordEntry wordEntry) {
         if (frequentWords.size() > 0) {
             for (int i = 0; i < frequentWords.size(); i++) {
-                if (wordNode.getFrequency() > frequentWords.get(i).getFrequency()) {
+                if (wordEntry.getFrequency() >= frequentWords.get(i).getFrequency()) {
                     frequentWords.add(i, wordEntry);
+                    break;
                 }
             }
         }
@@ -40,9 +49,11 @@ public class CharNode {
 
     public ArrayList<String> getFrequentWords() {
         ArrayList<String> words = new ArrayList<>();
-        for (WordNode wordNode : frequentWords) {
-            words.add(wordNode.getWord());
+        for (WordEntry wordEntry : frequentWords) {
+            words.add(wordEntry.getWord());
         }
+        
+        return words;
     }
 
     public void addChild(CharNode childNode) {

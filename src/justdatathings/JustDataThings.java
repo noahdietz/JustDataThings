@@ -5,6 +5,9 @@
  */
 package justdatathings;
 
+import java.util.Arrays;
+import java.util.Map;
+
 /**
  *
  * @author ndietz
@@ -17,23 +20,27 @@ public class JustDataThings {
     public static void main(String[] args) {
         // TODO code application logic here
          DocumentFrequency df = new DocumentFrequency();
-         df.populateWords("debate.txt");
+         df.populateWords(args[0]);
+         CharNode root = generateTree(df);
+         System.out.println(root);
     }
 
 
-    public void generateTree(DocumentFrequency df) {
-        CharNode root = new CharNode(".");
+    public static CharNode generateTree(DocumentFrequency df) {
+        CharNode root = new CharNode('.');
         for (Map.Entry<String, Integer> map : df.WordsAsEntrySet()) {
             char[] letters = map.getKey().toCharArray();
             WordEntry wordEntry = new WordEntry(map.getKey(), map.getValue());
             root.addChild(addLetters(root, letters, wordEntry));
         }
+        
+        return root;
     }
 
-    public CharNode addLetters(CharNode curCharNode, char[] letters, WordEntry wordEntry) {
+    public static CharNode addLetters(CharNode curCharNode, char[] letters, WordEntry wordEntry) {
         char letter = letters[0];
         CharNode charNode;
-        if (!curCharNode.hasLetter(letter)) {
+        if (curCharNode.hasLetter(letter)) {
             charNode = curCharNode.getChild(letter);
         }
         else {
@@ -44,7 +51,7 @@ public class JustDataThings {
             return charNode;
         }
         else {
-            charNode.addChild(addLetters(charNode, Array.copyOfRange(letters, 1, letters.length), wordEntry));
+            charNode.addChild(addLetters(charNode, Arrays.copyOfRange(letters, 1, letters.length), wordEntry));
         }
         return charNode;
     }
