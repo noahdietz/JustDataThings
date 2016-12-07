@@ -7,6 +7,7 @@ package justdatathings;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Scanner;
 
 /**
  *
@@ -22,7 +23,35 @@ public class JustDataThings {
          DocumentFrequency df = new DocumentFrequency();
          df.populateWords(args[0]);
          CharNode root = generateTree(df);
-         System.out.println(root);
+         
+         Scanner input = new Scanner(System.in);
+         CharNode current;
+         
+         while (input.hasNext()) {
+             String line = input.next();
+             
+             if (line.equals("quit")) {
+                 break;
+             }
+             
+             current = root;
+             for (Character c : line.toCharArray()) {
+                 current = current.getChild(c);
+                 if (current == null) {
+                     break;
+                 }
+             }
+             
+             if (current != null) {
+                if (current.getFrequentWords().size() > 20) {
+                    System.out.println(current.getFrequentWords().subList(0, 20));
+                } else {
+                   System.out.println(current.getFrequentWords());
+                }
+             } else {
+                 System.out.println("No words found.");
+             }
+         }
     }
 
 

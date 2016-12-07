@@ -34,12 +34,18 @@ public class CharNode {
     }
 
     public void addWord(WordEntry wordEntry) {
+        boolean added = false;
         if (frequentWords.size() > 0) {
             for (int i = 0; i < frequentWords.size(); i++) {
                 if (wordEntry.getFrequency() >= frequentWords.get(i).getFrequency()) {
                     frequentWords.add(i, wordEntry);
+                    added = true;
                     break;
                 }
+            }
+            
+            if (!added) {
+                frequentWords.add(wordEntry);
             }
         }
         else {

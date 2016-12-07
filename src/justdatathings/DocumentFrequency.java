@@ -49,10 +49,10 @@ public class DocumentFrequency {
                 // process the line.
                 for (String word : line.split("\\s+")) {
                     word = word.replaceAll("[^a-zA-Z]+","").toLowerCase();
-                    if (words.containsKey(word)) {
+                    if (word.length() > 0 && words.containsKey(word)) {
                         words.put(word, words.get(word) + 1);
                     }
-                    else {
+                    else if (word.length() > 0) {
                         words.put(word, 1);
                     }
                 }
